@@ -1,0 +1,47 @@
+document.addEventListener('DOMContentLoaded', function() {
+   
+    const likeButtons = document.querySelectorAll('.likes-comments');
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const likeCountElement = this.querySelector('i:nth-child(2)');
+            if (likeCountElement) {
+                let likeCount = parseInt(likeCountElement.textContent.replace(' Likes', '')) || 0; 
+                likeCountElement.textContent = (likeCount + 1) + ' Likes';
+            }
+        });
+    });
+
+    
+    const followButtons = document.querySelectorAll('.follow-button');
+    followButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            if (button.textContent === 'Follow +') {
+                button.textContent = 'Following';
+                button.classList.add('following'); 
+            } else {
+                button.textContent = 'Follow +';
+                button.classList.remove('following'); 
+            }
+        });
+    });
+
+
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const settingsButton = dropdown.querySelector('.settings-button');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+        settingsButton.addEventListener('click', function() {
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        });
+
+        
+        window.addEventListener('click', function(event) {
+            if (!event.target.matches('.settings-button')) {
+                if (dropdownContent.style.display === 'block') {
+                    dropdownContent.style.display = 'none';
+                }
+            }
+        });
+    });
+});
